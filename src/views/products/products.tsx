@@ -7,7 +7,7 @@ import { Product } from "@/types";
 import { PaginationControls } from "@/views/products/paginationControls/paginationControls";
 import { ProductList } from "@/views/products/productList/productList";
 import { ProductModal } from "@/views/products/productModal/productModal";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 
 export const Products: React.FC = () => {
@@ -22,6 +22,7 @@ export const Products: React.FC = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   useEffect(() => {
     const productId = searchParams.get("product-id");
@@ -34,6 +35,7 @@ export const Products: React.FC = () => {
       }
     }
   }, [searchParams]);
+
   const handleOpenModal = useCallback(
     (product: Product) => {
       setSelectedProduct(product);
@@ -44,7 +46,8 @@ export const Products: React.FC = () => {
 
   const handleCloseModal = useCallback(() => {
     setSelectedProduct(null);
-  }, []);
+    router.replace(pathname, { scroll: false });
+  }, [router, pathname]);
 
   return (
     <div>
