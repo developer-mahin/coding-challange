@@ -1,5 +1,6 @@
-import { Products } from "@/views/products";
+
+import ProductsWrapper from "@/views/products/ProductsWrapper";
 
 export default function ProductsRoot() {
-  return <Products />;
+  return <ProductsWrapper />;
 }
